@@ -11,8 +11,8 @@ EXAMPLE_DIVIDER = "!!@@##@@!! -- Example {i}\n"
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output_base_path", required=True)
-    parser.add_argument("--tasks", default="all_tasks")
+    parser.add_argument("--output_base_path", default="test-out")
+    parser.add_argument("--tasks", default="drop") # was all_tasks
     parser.add_argument("--provide_description", action="store_true")
     parser.add_argument("--sets", type=str, default="val")  # example: val,test
     parser.add_argument("--num_fewshot", type=int, default=1)
