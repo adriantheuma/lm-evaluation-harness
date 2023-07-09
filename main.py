@@ -12,13 +12,13 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", default="hf-causal-experimental")
     parser.add_argument("--model_args", default="pretrained=decapoda-research/llama-7b-hf,peft=tloen/alpaca-lora-7b")
-    parser.add_argument("--tasks", default="drop", choices=utils.MultiChoice(tasks.ALL_TASKS))
+    parser.add_argument("--tasks", default="math_algebra", choices=utils.MultiChoice(tasks.ALL_TASKS))
     parser.add_argument("--provide_description", action="store_true")
     parser.add_argument("--num_fewshot", type=int, default=0)
     parser.add_argument("--batch_size", type=str, default=None)
     parser.add_argument("--max_batch_size", type=int, default=None,
                         help="Maximal batch size to try with --batch_size auto")
-    parser.add_argument("--device", type=str, default=None)
+    parser.add_argument("--device", type=str, default="cuda")
     parser.add_argument("--output_path", default=None)
     parser.add_argument("--limit", type=float, default=5,
                         help="Limit the number of examples per task. "
