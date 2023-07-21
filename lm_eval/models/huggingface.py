@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import List, Mapping, NewType, Optional, Tuple, Union
 from tqdm import tqdm
 
-from transformers import BatchEncoding
+from transformers import BatchEncoding, LlamaTokenizer
 
 from lm_eval import utils
 from lm_eval.base import BaseLM
@@ -336,12 +336,17 @@ class HuggingFaceAutoLM(BaseLM):
         trust_remote_code: Optional[bool] = False,
     ) -> transformers.PreTrainedTokenizer:
         """Returns a pre-trained tokenizer from a pre-trained tokenizer configuration."""
-        tokenizer = self.AUTO_TOKENIZER_CLASS.from_pretrained(
-            pretrained if tokenizer is None else tokenizer,
-            revision=revision + ("/" + subfolder if subfolder is not None else ""),
-            trust_remote_code=trust_remote_code,
-        )
-        tokenizer.pad_token = tokenizer.eos_token
+        # tokenizer = self.AUTO_TOKENIZER_CLASS.from_pretrained(
+        #     pretrained if tokenizer is None else tokenizer,
+        #     revision=revision + ("/" + subfolder if subfolder is not None else ""),
+        #     trust_remote_code=trust_remote_code,
+        # )
+        # tokenizer.pad_token = tokenizer.eos_token
+
+        tokenizer = LlamaTokenizer.from_pretrained(pretrained)
+        tokenizer.pad_token_id = 0
+        tokenizer.bos_token_id = 1
+        tokenizer.eos_token_id = 2
         return tokenizer
 
     @property

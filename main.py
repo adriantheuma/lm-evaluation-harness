@@ -18,9 +18,9 @@ def parse_args():
     parser.add_argument("--batch_size", type=str, default=None)
     parser.add_argument("--max_batch_size", type=int, default=None,
                         help="Maximal batch size to try with --batch_size auto")
-    parser.add_argument("--device", type=str, default="cuda")
+    parser.add_argument("--device", type=str, default="cuda:0")
     parser.add_argument("--output_path", default=None)
-    parser.add_argument("--limit", type=float, default=5,
+    parser.add_argument("--limit", type=float, default=10,
                         help="Limit the number of examples per task. "
                              "If <1, limit is a percentage of the total number of examples.")
     parser.add_argument("--data_sampling", type=float, default=None)
@@ -38,6 +38,27 @@ def main():
     args = parse_args()
 
     assert not args.provide_description  # not implemented
+
+    print(
+            f"Evaluating with params:\n"
+            f"model: {args.model}\n"
+            f"model_args: {args.model_args}\n" 
+            f"tasks: {args.tasks}\n"
+            f"provide_description: {args.provide_description}\n"
+            f"num_fewshot: {args.num_fewshot}\n"
+            f"batch_size: {args.batch_size}\n"
+            f"max_batch_size: {args.max_batch_size}\n",
+            f"device: {args.device}\n"
+            f"output_path: {args.output_path}\n"
+            f"limit: {args.limit}\n"
+            f"data_sampling: {args.data_sampling}\n"
+            f"no_cache: {args.no_cache}\n"
+            f"decontamination_ngrams_path: {args.decontamination_ngrams_path}\n"
+            f"description_dict_path: {args.description_dict_path}\n"
+            f"check_integrity: {args.check_integrity}\n"
+            f"write_out: {args.write_out}\n"
+            f"output_base_path: {args.output_base_path}\n"
+    )
 
     if args.limit:
         print(
